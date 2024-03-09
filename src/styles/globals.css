@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 75, 0, 130;
+  --background-end-rgb: 255, 255, 255;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+/* Updated colors based on the provided palette */
+:root {
+  --foreground-rgb: 255, 255, 255; /* White */
+  --background-start-rgb: 82, 211, 216; /* #52D3D8 */
+  --background-end-rgb: 56, 135, 190; /* #3887BE */
+}
