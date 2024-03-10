@@ -1,14 +1,15 @@
-// taskslice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Task } from '../../components/molecules/taskform'; // Import Task interface
 
 // Define the initial state for tasks
 interface TaskState {
   tasks: Task[];
+  idCounter: number; // Add idCounter to the state
 }
 
 const initialState: TaskState = {
   tasks: [],
+  idCounter: 1, // Initialize idCounter to 1
 };
 
 // Create a slice for managing tasks
@@ -18,7 +19,10 @@ const taskSlice = createSlice({
   reducers: {
     // Add a reducer for adding a new task
     addTask(state, action: PayloadAction<Task>) {
-      state.tasks.push(action.payload);
+      const newTask = action.payload;
+      newTask.id = state.idCounter; // Assign id
+      state.tasks.push(newTask);
+      state.idCounter++; // Increment idCounter
     },
     // Add other reducers as needed (e.g., for updating or deleting tasks)
   },

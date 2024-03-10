@@ -22,6 +22,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
           {task.title}
         </Typography>
         <Typography color="textSecondary">{task.description}</Typography>
+
         <Typography color="textSecondary">#{task.id}</Typography>
       </CardContent>
     </Card>
