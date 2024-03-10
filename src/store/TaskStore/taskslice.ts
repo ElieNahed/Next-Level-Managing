@@ -1,6 +1,6 @@
-// taskslice.ts
+// store/TaskStore/taskslice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Task } from '../../components/molecules/taskform'; // Import Task interface
+import { Task } from '../../components/molecules/taskform';
 
 interface TaskState {
   tasks: Task[];
@@ -26,9 +26,16 @@ const taskSlice = createSlice({
       const taskIdToDelete = action.payload;
       state.tasks = state.tasks.filter(task => task.id !== taskIdToDelete);
     },
+    toggleTaskCompletion(state, action: PayloadAction<number>) {
+      const taskIdToToggle = action.payload;
+      const taskToToggle = state.tasks.find(task => task.id === taskIdToToggle);
+      if (taskToToggle) {
+        taskToToggle.completed = !taskToToggle.completed;
+      }
+    },
   },
 });
 
-export const { addTask, deleteTask } = taskSlice.actions;
+export const { addTask, deleteTask, toggleTaskCompletion } = taskSlice.actions;
 
 export default taskSlice.reducer;
