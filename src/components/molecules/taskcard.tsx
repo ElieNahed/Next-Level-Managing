@@ -1,5 +1,5 @@
 // components/molecules/taskcard.tsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -21,6 +21,7 @@ interface TaskCardProps {
 const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
   const dispatch = useDispatch();
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [daysLeft, setDaysLeft] = useState<number | null>(null);
 
   const handleDelete = () => {
     setShowConfirmation(true);
@@ -54,6 +55,16 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
     }
   };
 
+  useEffect(() => {
+    if (task.dueDate) {
+      const currentDate = new Date();
+      const dueDate = new Date(task.dueDate);
+      const differenceInTime = dueDate.getTime() - currentDate.getTime();
+      const differenceInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24));
+      setDaysLeft(differenceInDays);
+    }
+  }, [task.dueDate]);
+
   const cardStyle = {
     marginBottom: "1rem",
     width: "200px",
@@ -66,7 +77,12 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
         <Typography variant="h6" component="h2" gutterBottom>
           {task.title}
         </Typography>
-        <Typography color="textSecondary">{task.description}</Typography>
+        <Typography color="textSecondary">
+          {task.dueDate
+            ? new Date(task.dueDate).toLocaleDateString()
+            : "No due date"}
+          {daysLeft !== null && ` (${daysLeft} days left)`}
+        </Typography>
         <Typography color="textSecondary">#{task.id}</Typography>
         <Checkbox
           checked={task.completed}
