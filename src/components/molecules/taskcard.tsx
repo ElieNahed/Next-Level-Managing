@@ -2,13 +2,23 @@ import React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { Task } from "./taskform"; // Import Task interface
-
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete"; // Import delete icon
+import { useDispatch } from "react-redux";
+import { deleteTask } from "../../store/TaskStore/taskslice"; // Import deleteTask action
+import { Task } from "./taskform";
 interface TaskCardProps {
   task: Task;
 }
 
 const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
+  const dispatch = useDispatch();
+
+  const handleDelete = () => {
+    // Dispatch action to delete the task
+    dispatch(deleteTask(task.id));
+  };
+
   // Function to get the background color based on priority
   const getPriorityColor = (priority: "Low" | "Medium" | "High" | "Urgent") => {
     switch (priority) {
@@ -40,6 +50,10 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
         </Typography>
         <Typography color="textSecondary">{task.description}</Typography>
         <Typography color="textSecondary">#{task.id}</Typography>
+        {/* Delete icon button */}
+        <IconButton aria-label="delete" onClick={handleDelete}>
+          <DeleteIcon />
+        </IconButton>
       </CardContent>
     </Card>
   );

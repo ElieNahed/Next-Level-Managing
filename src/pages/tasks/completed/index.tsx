@@ -1,21 +1,21 @@
 "use client";
-import React, { useState } from 'react';
-import TaskCard, { Task } from '../../../components/molecules/taskcard';
-import Navbar from '@/components/organisms/navbar';
-
+import React, { useState } from "react";
+import TaskCard from "../../../components/molecules/taskcard";
+import Navbar from "@/components/organisms/navbar";
+import { Task } from "@/components/molecules/taskform";
 const CompletedPage: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
 
   return (
     <>
-        <Navbar />
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
-            <div className='flex gap-4 flex-wrap'>
-            {tasks.map(task => (
-                <TaskCard key={task.id} task={task} />
-            ))}
-            </div>
-        </main>
+      <Navbar />
+      <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        <div className="flex gap-4 flex-wrap">
+          {tasks.map((task) => (
+            <TaskCard key={task.id} task={task} />
+          ))}
+        </div>
+      </main>
     </>
   );
 };
