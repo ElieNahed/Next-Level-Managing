@@ -1,16 +1,17 @@
 // components/molecules/taskcard.tsx
-import React from "react";
+import React, { useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Checkbox from "@mui/material/Checkbox"; // Import Checkbox
+import Checkbox from "@mui/material/Checkbox";
+import ConfirmationModal from "./confirmationModal"; // Import ConfirmationModal
 import { useDispatch } from "react-redux";
 import {
   deleteTask,
   toggleTaskCompletion,
-} from "../../store/TaskStore/taskslice"; // Import toggleTaskCompletion action
+} from "../../store/TaskStore/taskslice";
 import { Task } from "./taskform";
 
 interface TaskCardProps {
@@ -19,9 +20,19 @@ interface TaskCardProps {
 
 const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
   const dispatch = useDispatch();
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   const handleDelete = () => {
+    setShowConfirmation(true);
+  };
+
+  const handleConfirmDelete = () => {
     dispatch(deleteTask(task.id));
+    setShowConfirmation(false);
+  };
+
+  const handleCancelDelete = () => {
+    setShowConfirmation(false);
   };
 
   const handleToggleCompletion = () => {
@@ -66,6 +77,13 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
         <IconButton aria-label="delete" onClick={handleDelete}>
           <DeleteIcon />
         </IconButton>
+        {showConfirmation && (
+          <ConfirmationModal
+            message="Are you sure you want to delete this task?"
+            onConfirm={handleConfirmDelete}
+            onCancel={handleCancelDelete}
+          />
+        )}
       </CardContent>
     </Card>
   );
