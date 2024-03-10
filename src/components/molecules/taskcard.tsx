@@ -79,7 +79,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
         </IconButton>
         {showConfirmation && (
           <ConfirmationModal
-            message="Are you sure you want to delete this task?"
+            message={`Are you sure you want to delete this task "#${task.id}:${task.title}"?`}
             onConfirm={handleConfirmDelete}
             onCancel={handleCancelDelete}
           />
