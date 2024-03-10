@@ -5,7 +5,7 @@ import CustomButton from "../atoms/button";
 import { addTask } from "../../store/TaskStore/taskslice";
 
 export interface Task {
-  id: string;
+  id: number;
   title: string;
   description: string;
   completed: boolean;
@@ -20,13 +20,13 @@ interface TaskFormProps {
 
 const TaskForm: React.FC<TaskFormProps> = () => {
   const dispatch = useDispatch();
+  const [idCounter, setIdCounter] = useState(1); // Initialize idCounter to 1
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [dueDate, setDueDate] = useState(new Date());
   const [priority, setPriority] = useState<
     "Low" | "Medium" | "High" | "Urgent"
   >("Low");
-  const [taskIdCounter, setTaskIdCounter] = useState(0); // State to keep track of task IDs
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,8 +38,9 @@ const TaskForm: React.FC<TaskFormProps> = () => {
     ) {
       return;
     }
+
     const newTask: Task = {
-      id: (taskIdCounter + 1).toString(), // Incrementing the task ID
+      id: idCounter, // Use current value of idCounter as id
       title: title,
       description: description,
       completed: false,
@@ -53,7 +54,7 @@ const TaskForm: React.FC<TaskFormProps> = () => {
     setDescription("");
     setDueDate(new Date());
     setPriority("Low");
-    setTaskIdCounter(taskIdCounter + 1); // Increment the task ID counter
+    setIdCounter(idCounter + 1); // Increment idCounter by 1
   };
 
   const isFormValid =
@@ -81,16 +82,15 @@ const TaskForm: React.FC<TaskFormProps> = () => {
   };
 
   return (
-    <div>
+    <div style={{ display: "flex", justifyContent: "center" }}>
       <form
         onSubmit={handleSubmit}
         style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          border: "1px solid #ccc",
+          width: "100%",
+          maxWidth: "400px", // Adjust max width as per your design
           padding: "20px",
           borderRadius: "5px",
+          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
         }}
       >
         <CustomTextField
@@ -112,13 +112,12 @@ const TaskForm: React.FC<TaskFormProps> = () => {
           onChange={(value) => setDueDate(new Date(value))}
           required
         />
-        <div>
+        <div style={{ display: "flex", justifyContent: "space-around" }}>
           <label
             style={{
               backgroundColor: "grey",
               padding: "5px",
               borderRadius: "5px",
-              marginRight: "10px",
             }}
           >
             <input
@@ -134,7 +133,6 @@ const TaskForm: React.FC<TaskFormProps> = () => {
               backgroundColor: "yellow",
               padding: "5px",
               borderRadius: "5px",
-              marginRight: "10px",
             }}
           >
             <input
@@ -150,7 +148,6 @@ const TaskForm: React.FC<TaskFormProps> = () => {
               backgroundColor: "orange",
               padding: "5px",
               borderRadius: "5px",
-              marginRight: "10px",
             }}
           >
             <input
@@ -178,15 +175,15 @@ const TaskForm: React.FC<TaskFormProps> = () => {
           </label>
         </div>
         <CustomButton text="Add Task" disabled={!isFormValid} />
+        <div
+          style={{
+            marginTop: "10px",
+            backgroundColor: getPriorityColor(priority),
+            width: "100px",
+            height: "20px",
+          }}
+        ></div>
       </form>
-      <div
-        style={{
-          marginTop: "20px",
-          backgroundColor: getPriorityColor(priority),
-          width: "100px",
-          height: "20px",
-        }}
-      ></div>
     </div>
   );
 };
