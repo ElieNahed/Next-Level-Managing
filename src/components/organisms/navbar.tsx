@@ -1,27 +1,63 @@
 import React from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const Navbar: React.FC = () => {
+  const router = useRouter();
+  const isHomePage = router.pathname === "/";
+
   return (
-    <nav className="p-4 fixed w-full z-50 bg-gradient-to-b from-custom-bg-start to-custom-bg-end">
+    <nav className="p-4 fixed w-full z-50 bg-gradient-to-b from-#52D3D8 to-#3887BE">
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center">
+          {!isHomePage && (
+            <ArrowBackIcon
+              onClick={() => router.back()}
+              className="text-white mr-4 cursor-pointer"
+            />
+          )}
           <Link href="/" className="text-white font-semibold text-xl">
             Next Level Managing
           </Link>
         </div>
         <div className="flex items-center">
-          <Link href="/tasks/active" className="text-custom-link mr-4">
-            Active
-          </Link>
-          <Link href="/tasks/completed" className="text-custom-link mr-4">
-            Completed
-          </Link>
-          <Link href="/tasks/details" className="text-custom-link">
-            Details
-          </Link>
+          <div className="link-container">
+            <Link href="/tasks/active" className="task-link">
+              Active
+            </Link>
+          </div>
+          <div className="link-container">
+            <Link href="/tasks/completed" className="task-link">
+              Completed
+            </Link>
+          </div>
+          <div className="link-container">
+            <Link href="/tasks/details" className="task-link">
+              Details
+            </Link>
+          </div>
         </div>
       </div>
+
+      <style jsx>{`
+        .link-container {
+          border: 1px solid #38419d; /* Border color */
+          border-radius: 5px; /* Border radius */
+          padding: 8px 16px; /* Padding */
+          margin-right: 16px; /* Adjust the space between buttons */
+          background-color: #200e3a; /* Button background color */
+          transition: background-color 0.3s, border-color 0.3s; /* Smooth transition effect */
+        }
+        .link-container:hover {
+          background-color: #53d8; /* Button background color on hover */
+          border-color: #38e87b; /* Border color on hover */
+        }
+        .task-link {
+          text-decoration: none;
+          color: #ffffff; /* Text color */
+        }
+      `}</style>
     </nav>
   );
 };
