@@ -70,7 +70,7 @@ const TaskForm: React.FC<TaskFormProps> = () => {
         onSubmit={handleSubmit}
         style={{
           width: "100%",
-          maxWidth: "400px", // Adjust max width as per your design
+          maxWidth: "400px",
           padding: "20px",
           borderRadius: "5px",
           boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)",

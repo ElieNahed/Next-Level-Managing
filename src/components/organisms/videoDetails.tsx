@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
-import Alert from "../atoms/alert"; // Import the Alert component
+import Alert from "../atoms/alert";
 
 const VideoDetails: React.FC = () => {
   const [videoDetails, setVideoDetails] = useState<{

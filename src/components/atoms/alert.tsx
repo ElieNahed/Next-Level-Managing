@@ -1,4 +1,3 @@
-// components/atoms/alert.tsx
 import React from "react";
 
 const Alert: React.FC<{ message: string }> = ({ message }) => {
