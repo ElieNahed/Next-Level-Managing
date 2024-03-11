@@ -10,7 +10,7 @@ ts
 tailwindcss
  redux 
   axios 
-
+  material UI
 
   one of the most difficult issue  that i faced  :   the redux tool kit query 
   does not work properly  to  get the pic and the title from the API 
