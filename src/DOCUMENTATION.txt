@@ -1,0 +1,19 @@
+git clone  https://github.com/ElieNahed/Next-Level-Managing.git
+
+npm install 
+
+npm run dev 
+
+in this project we used 
+nextjs  
+ts   
+tailwindcss
+ redux 
+  axios 
+
+
+  one of the most difficult issue  that i faced  :   the redux tool kit query 
+  does not work properly  to  get the pic and the title from the API 
+
+
+  
