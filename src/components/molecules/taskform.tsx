@@ -14,9 +14,7 @@ export interface Task {
   priority: "Low" | "Medium" | "High" | "Urgent";
 }
 
-interface TaskFormProps {
-  // No need to pass addTask as a prop anymore
-}
+interface TaskFormProps {}
 
 const TaskForm: React.FC<TaskFormProps> = () => {
   const dispatch = useDispatch();
@@ -66,21 +64,6 @@ const TaskForm: React.FC<TaskFormProps> = () => {
     setPriority(selectedPriority);
   };
 
-  const getPriorityColor = (priority: "Low" | "Medium" | "High" | "Urgent") => {
-    switch (priority) {
-      case "Low":
-        return "grey";
-      case "Medium":
-        return "yellow";
-      case "High":
-        return "orange";
-      case "Urgent":
-        return "red";
-      default:
-        return "grey";
-    }
-  };
-
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <form
@@ -90,7 +73,7 @@ const TaskForm: React.FC<TaskFormProps> = () => {
           maxWidth: "400px", // Adjust max width as per your design
           padding: "20px",
           borderRadius: "5px",
-          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)",
         }}
       >
         <CustomTextField

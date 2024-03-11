@@ -1,10 +1,10 @@
 // components/molecules/ConfirmationModal.tsx
 import React, { useState } from "react";
-import Spinner from "./Spinner"; // Import Spinner component
+import Spinner from "./Spinner";
 
 interface ConfirmationModalProps {
   message: string;
-  onConfirm: () => Promise<void>; // Update onConfirm to return a Promise
+  onConfirm: () => Promise<void>;
   onCancel: () => void;
 }
 
@@ -13,12 +13,12 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   onConfirm,
   onCancel,
 }) => {
-  const [loading, setLoading] = useState(false); // State to manage loading
+  const [loading, setLoading] = useState(false);
 
   const handleConfirm = async () => {
-    setLoading(true); // Set loading to true before calling onConfirm
-    await onConfirm(); // Wait for onConfirm to complete
-    setLoading(false); // Set loading to false after onConfirm completes
+    setLoading(true);
+    await onConfirm();
+    setLoading(false);
   };
 
   return (

@@ -14,12 +14,12 @@ const ActivePage: React.FC = () => {
     <>
       <Navbar />
       <div className="bg-primary min-h-screen flex justify-center items-center">
-        <div className="bg-white bg-opacity-25 p-8 rounded-lg">
-          <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        <div className="bg-white bg-opacity-25 p-8 rounded-lg flex flex-col w-full max-w-screen-lg">
+          <main className="flex-grow flex flex-col items-center justify-between p-4 md:p-12">
             {activeTasks.length === 0 && (
               <Alert message="No active tasks found!" />
             )}
-            <div className="flex gap-4 flex-wrap">
+            <div className="flex flex-wrap justify-center gap-4">
               {activeTasks.map((task) => (
                 <TaskCard key={task.id} task={task} />
               ))}

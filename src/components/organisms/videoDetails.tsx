@@ -43,16 +43,21 @@ const VideoDetails: React.FC = () => {
   }
 
   return (
-    <div className="mt-[100px] w-fit h-fit p-12 bg-[#ffffff69] border-2 border-violet-900">
-      {videoDetails.image && (
-        <Image
-          src={videoDetails.image}
-          alt={videoDetails.title}
-          width={400}
-          height={300}
-        />
-      )}
-      <h2>Title: {videoDetails.title}</h2>
+    <div className="flex flex-col items-center mt-10 p-4 sm:p-8 lg:p-12">
+      <div className="relative w-full max-w-md lg:max-w-xl">
+        {videoDetails.image && (
+          <Image
+            src={videoDetails.image}
+            alt={videoDetails.title}
+            width={400}
+            height={300}
+            className="rounded-lg"
+          />
+        )}
+        <div className="absolute top-0 left-0 w-full text-white bg-black bg-opacity-50 p-2">
+          {videoDetails.title}
+        </div>
+      </div>
     </div>
   );
 };

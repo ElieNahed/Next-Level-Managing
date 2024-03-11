@@ -28,17 +28,17 @@ const CustomTextField: React.FC<CustomTextFieldProps> = ({
         width: "100%",
         marginBottom: "1rem",
         "& .MuiInputBase-root": {
-          color: "#38419D", // Use color from your palette for text input
+          color: "#38419D",
         },
         "& .MuiOutlinedInput-root": {
           "& fieldset": {
-            borderColor: "#38419D", // Use color from your palette for input border
+            borderColor: "#38419D",
           },
           "&:hover fieldset": {
-            borderColor: "#3887BE", // Use color from your palette for hover state border
+            borderColor: "#3887BE",
           },
           "&.Mui-focused fieldset": {
-            borderColor: "#52D3D8", // Use color from your palette for focused state border
+            borderColor: "#000",
           },
         },
       }}
