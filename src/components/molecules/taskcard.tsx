@@ -21,6 +21,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
   const dispatch = useDispatch();
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [daysLeft, setDaysLeft] = useState<number | null>(null);
+  const [showDescription, setShowDescription] = useState(false); // New state for toggling description
 
   const handleDelete = () => {
     setShowConfirmation(true);
@@ -68,30 +69,58 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
     marginBottom: "1rem",
     width: "200px",
     backgroundColor: getPriorityColor(task.priority),
+    display: "flex",
+    flexDirection: "column",
+    maxHeight: "100%",
+    overflowY: "auto" as const, // Correctly typing overflowY
+    scrollbarColor: "blue darkblue", // Customizing scrollbar color
+  };
+
+  const descriptionStyle = {
+    flex: "1",
+    overflowY: "auto" as const,
+    wordWrap: "break-word" as const, // Typing wordWrap correctly
   };
 
   return (
-    <Card variant="outlined" style={cardStyle}>
+    <Card variant="outlined" sx={cardStyle}>
       <CardContent>
-        <Typography variant="h6" component="h2" gutterBottom>
-          {task.title}
-        </Typography>
-        <Typography color="textSecondary">
-          {task.dueDate
-            ? new Date(task.dueDate).toLocaleDateString()
-            : "No due date"}
-          {daysLeft !== null && ` (${daysLeft} days left)`}
-        </Typography>
-        <Typography color="textSecondary">#{task.id}</Typography>
-        <Checkbox
-          checked={task.completed}
-          onChange={handleToggleCompletion}
-          color="primary"
-          inputProps={{ "aria-label": "completed" }}
-        />
-        <IconButton aria-label="delete" onClick={handleDelete}>
-          <DeleteIcon />
-        </IconButton>
+        {!showDescription ? (
+          <>
+            <Typography variant="h6" component="h2" gutterBottom>
+              {task.title}
+            </Typography>
+            <Typography color="textSecondary">
+              {task.dueDate
+                ? new Date(task.dueDate).toLocaleDateString()
+                : "No due date"}
+              {daysLeft !== null && ` (${daysLeft} days left)`}
+            </Typography>
+            <Typography color="textSecondary">#{task.id}</Typography>
+            <Checkbox
+              checked={task.completed}
+              onChange={handleToggleCompletion}
+              color="primary"
+              inputProps={{ "aria-label": "completed" }}
+            />
+            <IconButton aria-label="delete" onClick={handleDelete}>
+              <DeleteIcon />
+            </IconButton>
+            <button onClick={() => setShowDescription(true)}>
+              Show Description
+            </button>{" "}
+          </>
+        ) : (
+          <div style={descriptionStyle}>
+            <Typography variant="h6" component="h2" gutterBottom>
+              Description
+            </Typography>
+            <Typography>{task.description}</Typography>
+            <button onClick={() => setShowDescription(false)}>
+              Hide Description
+            </button>{" "}
+          </div>
+        )}
         {showConfirmation && (
           <ConfirmationModal
             message={`Are you sure you want to delete this task "#${task.id}:${task.title}"?`}
