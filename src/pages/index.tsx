@@ -6,11 +6,15 @@ const Home = () => {
   return (
     <>
       <Navbar />
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <div className="relative flex place-items-center ">
-          <TaskForm />
+      <div className="bg-primary min-h-screen flex justify-center items-center">
+        <div className="bg-white bg-opacity-25 p-8 rounded-lg">
+          <main className="flex min-h-screen flex-col items-center justify-between p-24">
+            <div className="relative flex place-items-center ">
+              <TaskForm />
+            </div>
+          </main>
         </div>
-      </main>
+      </div>
     </>
   );
 };
