@@ -2,6 +2,12 @@
   "name": "next-level-managing",
   "version": "0.1.0",
   "private": true,
+   "description": "Task manager webApp build with nextjs ",
+    "author": "Elie Nahed",
+     "repository": {
+      "type": "git",
+      "url": "https://github.com/ElieNahed/Next-Level-Managing.git"
+     },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
