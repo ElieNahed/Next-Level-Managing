@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
+import Alert from "../atoms/alert"; // Import the Alert component
 
 const VideoDetails: React.FC = () => {
   const [videoDetails, setVideoDetails] = useState<{
     title: string;
     image: string;
   } | null>(null);
-  const [loading, setLoading] = useState<boolean>(true); // Add loading state
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null); // Add error state
 
   useEffect(() => {
     const fetchVideoDetails = async () => {
@@ -16,8 +18,9 @@ const VideoDetails: React.FC = () => {
         setVideoDetails(response.data);
       } catch (error) {
         console.error("Error fetching video details:", error);
+        setError("Error fetching data"); // Set error state
       } finally {
-        setLoading(false); // Set loading to false regardless of success or failure
+        setLoading(false);
       }
     };
     fetchVideoDetails();
@@ -29,6 +32,10 @@ const VideoDetails: React.FC = () => {
         <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-900"></div>
       </div>
     );
+  }
+
+  if (error) {
+    return <Alert message={error} />; // Render the Alert component with error message
   }
 
   if (!videoDetails) {
