@@ -15,7 +15,12 @@ export default async function handler(
     res: NextApiResponse<VideoDetails | ErrorResponse>
 ) {
     try {
-        const response = await axios.get('https://dev-api.almashhad.tv/api/videos/detailsElastic/182622880654874');
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL; // Accessing environment variable
+        if (!apiUrl) {
+            throw new Error('API URL is not defined');
+        }
+
+        const response = await axios.get(apiUrl);
         const { result } = response.data.data;
         const { title, image } = result;
         // Ensure that the title and image are present in the response
