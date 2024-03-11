@@ -1,4 +1,3 @@
-// components/molecules/taskcard.tsx
 import React, { useState, useEffect } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -6,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Checkbox from "@mui/material/Checkbox";
-import ConfirmationModal from "./confirmationModal"; // Import ConfirmationModal
+import ConfirmationModal from "../atoms/confirmationModal"; // Import ConfirmationModal
 import { useDispatch } from "react-redux";
 import {
   deleteTask,
@@ -27,8 +26,8 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
     setShowConfirmation(true);
   };
 
-  const handleConfirmDelete = () => {
-    dispatch(deleteTask(task.id));
+  const handleConfirmDelete = async () => {
+    await dispatch(deleteTask(task.id));
     setShowConfirmation(false);
   };
 
